@@ -1,0 +1,13 @@
+:root {
+  @each $shade, $rgb in $rgbs {
+    --rgb-#{$shade}: #{$rgb};
+    --clr-#{$shade}: rgb(var(--rgb-#{$shade}));
+  }
+
+  --accent-rgb: #{get-rgb("blue")};
+  --accent-clr: rgb(#{get-rgb("accent")});
+  --text-rgb: #{get-rgb("gray")};
+  --text-clr: rgb(#{get-rgb("text")});
+  --bg-rgb: #{get-rgb("black")};
+  --bg-clr: rgb(#{get-rgb("bg")});
+}

@@ -1,0 +1,39 @@
+#top-header {
+  padding: 14px;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 14px;
+}
+
+.page-404 {
+  display: flex;
+  flex-direction: column;
+  gap: 10ch;
+  text-align: center;
+  min-height: calc(100vh - 80px);
+  justify-content: space-evenly;
+  h1 {
+    color: get-color("yellow");
+    font-size: 9vmin;
+  }
+  p {
+    font-size: 6vmin;
+  }
+  .lane {
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    > * {
+      flex: 1 0 auto;
+    }
+  }
+}
+
+@media print {
+  .navbar,
+  .sch {
+    display: none !important;
+  }
+}

@@ -1,0 +1,50 @@
+@function get-color($shade, $alpha: null) {
+  @if map-has-key($rgbs, $shade) {
+    @return if(
+      $alpha == null,
+      var(--clr-#{$shade}),
+      rgba(var(--rgb-#{$shade}), $alpha)
+    );
+  }
+  @return if(
+    $alpha == null,
+    var(--#{$shade}-clr),
+    rgba(var(--#{$shade}-rgb), $alpha)
+  );
+}
+
+@function get-rgb($shade) {
+  @return if(
+    map-has-key($rgbs, $shade),
+    var(--rgb-#{$shade}),
+    var(--#{$shade}-rgb)
+  );
+}
+
+@mixin layer($name) {
+  $i: index($layers, $name);
+  z-index: 1000 - $i;
+}
+
+@mixin invert {
+  color: #fff;
+  background-color: get-color("text");
+}
+
+@mixin custom-scrollbar($shade) {
+  scrollbar-width: thin;
+  scrollbar-color: get-color($shade) get-color($shade, 0.08);
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 0.75rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: get-color($shade);
+    border-radius: 0.75rem;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: get-color($shade, 0.08);
+    border-radius: 0.75rem;
+  }
+}

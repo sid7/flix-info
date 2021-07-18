@@ -1,0 +1,93 @@
+.navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 4px 10px;
+  background-color: get-color("bg");
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+  @include layer("navbar");
+
+  .link-brand {
+    display: none;
+    font-size: 2em;
+    padding: 16px;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1ch;
+    padding-block: 4px;
+    overflow-x: auto;
+    a {
+      color: get-color("text");
+      flex-grow: 1;
+      flex-shrink: 0;
+      text-align: center;
+      padding: 10px;
+      border-radius: 0.75rem;
+      svg {
+        font-size: 2em;
+      }
+
+      &.active {
+        // color: get-color("accent");
+        // background-color: get-color("accent", 0.08);
+        --text-rgb: #{get-rgb("accent")};
+        --text-clr: rgb(#{get-rgb("text")});
+        background-color: get-color("text", 0.08);
+      }
+      &:hover {
+        background-color: get-color("text", 0.1);
+      }
+      &:focus {
+        background-color: get-color("text", 0.15);
+        &:active {
+          background-color: get-color("text", 0.2);
+        }
+      }
+    }
+  }
+}
+@include breakpoint-down("md") {
+  @media (min-aspect-ratio: 13/9) {
+    .navbar {
+      width: auto;
+      top: 0;
+      nav {
+        flex-direction: column;
+        height: 100%;
+        a {
+          flex-grow: 0;
+        }
+      }
+    }
+    body {
+      padding-inline-start: 85px;
+    }
+  }
+}
+
+@include breakpoint-up("lg") {
+  .navbar {
+    top: 0;
+    bottom: unset;
+    width: auto;
+    height: 100%;
+    padding: 6px;
+    box-shadow: 0 10px 20px rgba(#000, 50%);
+    transition: $transition;
+    .link-brand {
+      display: inline-block;
+    }
+    nav {
+      flex-direction: column;
+      overflow: unset;
+      a {
+        outline-offset: 4px;
+      }
+    }
+  }
+}

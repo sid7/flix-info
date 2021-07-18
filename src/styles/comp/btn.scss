@@ -1,0 +1,40 @@
+.btn {
+  display: inline-block;
+  color: get-color("text");
+  font-weight: 400;
+  padding: 4px 10px;
+  font-size: 1rem;
+  background-color: get-color("bg");
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  user-select: none;
+}
+
+.btn-text {
+  &:hover {
+    background-color: get-color("text", 0.08);
+  }
+  &:focus {
+    background-color: get-color("text", 0.1);
+    &:active {
+      background-color: get-color("text", 0.2);
+    }
+  }
+}
+
+.btn-shine {
+  background-color: get-color("text", 0.08);
+  outline-offset: 4px;
+  &:hover {
+    background-color: get-color("text", 0.1);
+  }
+  &:focus {
+    background-color: get-color("text", 0.15);
+    &:not(:focus-visible) {
+      box-shadow: 0 0 0 0.2rem get-color("text", 0.35);
+    }
+    &:active {
+      background-color: get-color("text", 0.2);
+    }
+  }
+}
