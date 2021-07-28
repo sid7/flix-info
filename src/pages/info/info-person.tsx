@@ -1,4 +1,4 @@
-import { IPersonInfo } from "../../types/person-info";
+import type { IPersonInfo } from "../../types/person";
 
 export default function InfoPerson(data: IPersonInfo) {
   return (

@@ -1,4 +1,4 @@
-import { ISearchResponse } from "../types/search";
+import { ISearchResponse } from "../types/common";
 
 const tmdb_api_base = "https://api.themoviedb.org/3";
 
@@ -60,7 +60,7 @@ export async function search(query: string, scope = "multi") {
 
 // Image
 
-const img = {
+export const img = {
   base: "https://image.tmdb.org/t/p",
   sizes: {
     // prettier-ignore

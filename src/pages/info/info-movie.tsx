@@ -1,4 +1,4 @@
-import { IMovieInfo } from "../../types/movie-info";
+import type { IMovieInfo } from "../../types/movie";
 
 export default function InfoMovie(data: IMovieInfo) {
   return (
