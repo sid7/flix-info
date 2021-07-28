@@ -14,6 +14,8 @@ function processData(data: IMedia[]) {
   }));
 }
 
+export type IData = ReturnType<typeof processData>;
+
 interface IBlock {
   page: number;
   results: IMedia[];
@@ -22,7 +24,7 @@ interface IBlock {
 }
 
 export default function useFetchData(path: string) {
-  const [data, setData] = useState<ReturnType<typeof processData>>([]);
+  const [data, setData] = useState<IData>([]);
 
   useEffect(() => {
     request<IBlock>(path).then((payload) => {

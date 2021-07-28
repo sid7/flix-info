@@ -1,4 +1,4 @@
-export { default as Home } from "./home";
+export { default as Dash } from "./dash";
 export { default as InfoTv } from "./info/info-tv";
 export { default as InfoMovie } from "./info/info-movie";
 export { default as InfoPerson } from "./info/info-person";

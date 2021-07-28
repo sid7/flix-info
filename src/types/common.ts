@@ -1,7 +1,8 @@
-import type { IMovie } from "./movie";
-import type { IPerson } from "./person";
-import type { ITv } from "./tv";
+import type { ITv, ITvInfo } from "./tv";
+import type { IMovie, IMovieInfo } from "./movie";
+import type { IPerson, IPersonInfo } from "./person";
 
+export type IAnyInfo = ITvInfo | IMovieInfo | IPersonInfo;
 export interface IMedia
   extends Partial<ITv>,
     Partial<IMovie>,

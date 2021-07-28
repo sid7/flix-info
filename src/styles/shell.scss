@@ -7,6 +7,20 @@
   padding: 14px;
 }
 
+.page-dash {
+  h2 {
+    padding: 4px 10px;
+    border-block-end: 2px solid;
+  }
+  h3 {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: get-color('text', 0.08);
+    border-radius: 1ex;
+    margin-block-start: 1.5rem;
+  }
+}
+
 .page-404 {
   display: flex;
   flex-direction: column;

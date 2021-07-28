@@ -8,7 +8,7 @@ import Footer from "./components/footer";
 import NavBar from "./components/navbar";
 import SchBar from "./components/sch-bar";
 import Validate from "./components/validate";
-import { Home, InfoTv, InfoMovie, InfoPerson, Page404 } from "./pages";
+import { Dash, InfoTv, InfoMovie, InfoPerson, Page404 } from "./pages";
 
 export default function App() {
   return (
@@ -19,12 +19,12 @@ export default function App() {
       </header>
       <Switch>
         <Route path="/" exact>
-          <Home />
+          <Dash />
         </Route>
         <Route
           path="/:scope(tv|movie|person)"
           exact
-          render={(props) => <Home scope={props.match.params.scope} />}
+          render={(props) => <Dash scope={props.match.params.scope} />}
         />
         <Route
           path="/tv/:id"

@@ -1,0 +1,70 @@
+.scroller {
+  display: flex;
+  overflow-x: auto;
+  gap: 0.5rem;
+  padding: 1rem 0.4rem;
+  margin-block-start: 0.5rem;
+  --size: 27vmin;
+
+  li {
+    display: inline-block;
+  }
+  a {
+    color: inherit;
+    display: block;
+    height: 100%;
+    text-align: center;
+    border-radius: 1ex;
+    outline-offset: 6px;
+    background-color: get-color("text", 0.08);
+    &:hover {
+      color: get-color("accent");
+      background-color: get-color("text", 0.1);
+    }
+    &:focus {
+      background-color: get-color("text", 0.15);
+      &:active {
+        background-color: get-colot("text", 0.2);
+      }
+    }
+  }
+  figure {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    picture,
+    svg {
+      inline-size: var(--size);
+      max-inline-size: 154px;
+      block-size: auto;
+      aspect-ratio: 2/3;
+    }
+    img {
+      object-fit: cover;
+      inline-size: 100%;
+      block-size: 100%;
+      background-image: linear-gradient(
+        to bottom,
+        hsl(200deg 18% 20%),
+        hsl(200deg 18% 40%)
+      );
+      border-radius: 1ex;
+    }
+    figcaption {
+      display: none;
+    }
+  }
+  @include breakpoint-up("md") {
+    gap: 1rem;
+    padding-block-end: 2rem;
+    a {
+      padding: 10px;
+    }
+    figure figcaption {
+      display: unset;
+    }
+  }
+  @include breakpoint-up('lg') {
+    @include custom-scrollbar('text');
+  }
+}

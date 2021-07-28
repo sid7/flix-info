@@ -4,3 +4,12 @@
   justify-content: space-between;
   width: 100%;
 }
+
+@each $scope in $scopes {
+  .scope-#{$scope} {
+    .block:not(.block-#{$scope}),
+    .block-#{$scope} h3 {
+      display: none;
+    }
+  }
+}
