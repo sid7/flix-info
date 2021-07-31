@@ -1,3 +1,6 @@
+import type { ICompany, IExternalIDs } from "../common";
+import type { ICollection, ICast, ICrew, IReleaseInfo } from "./parts";
+
 export interface IMovie {
   adult: boolean;
   id: number;
@@ -15,4 +18,37 @@ export interface IMovie {
   video: boolean;
 }
 
-export interface IMovieInfo extends IMovie {}
+export interface IMovieDetails extends Omit<IMovie, "genre_ids"> {
+  imdb_id: string;
+  tagline: string | null;
+  status: string;
+  budget: number;
+  revenue: number;
+  runtime: number | null;
+  homepage: string;
+  belongs_to_collection: null | ICollection;
+  genres: { id: number; name: string }[];
+  spoken_languages: { iso_639_1: string; name: string }[];
+  production_companies: ICompany[];
+  production_countries: {
+    iso_3166_1: string;
+    name: string;
+  }[];
+}
+
+export interface IMovieInfo extends IMovieDetails {
+  external_ids: IExternalIDs;
+  credits: {
+    cast: ICast[];
+    crew: ICrew[];
+  };
+  release_dates: {
+    results: {
+      iso_3166_1: string;
+      release_dates: IReleaseInfo[];
+    }[];
+  };
+  keywords: {
+    keywords: { name: string; id: number }[];
+  };
+}
