@@ -1,21 +1,18 @@
 import { Link } from "react-router-dom";
 import { Image } from "react-feather";
 import cn from "classnames";
-import type { IData } from "../hooks/fetch-data";
+import type { IScrollerItem } from "../scripts/utils";
 
 interface IScroller {
-  items: IData;
+  items: IScrollerItem;
 }
 export default function Scroller({ items }: IScroller) {
   return (
     <ul className="scroller">
-      {items.map((item) => {
+      {items.map((item, i) => {
         const img = item.img.poster || item.img.profile;
         return (
-          <li
-            className={`media-${item.media_type}`}
-            data-id={item.id}
-            key={item.id}>
+          <li className={`media-${item.media_type}`} data-id={item.id} key={i}>
             <Link to={`/${item.media_type}/${item.id}`}>
               <figure className={cn({ "no-img": !img })}>
                 {img ? (
@@ -29,7 +26,7 @@ export default function Scroller({ items }: IScroller) {
                 ) : (
                   <Image strokeWidth={0.5} />
                 )}
-                <figcaption>{item.label}</figcaption>
+                <figcaption dangerouslySetInnerHTML={{ __html: item.label }} />
               </figure>
             </Link>
           </li>

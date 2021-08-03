@@ -50,7 +50,7 @@ export async function search(query: string, scope = "multi") {
         ? img.profile(d.profile_path, "md")
         : null,
       stamp: d.release_date || d.first_air_date,
-      type: d.media_type as "tv" | "movie" | "person"
+      type: d.media_type! as "tv" | "movie" | "person"
     }));
 
     return { data: processedData, status };

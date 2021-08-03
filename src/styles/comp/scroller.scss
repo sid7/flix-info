@@ -48,10 +48,16 @@
         hsl(200deg 18% 20%),
         hsl(200deg 18% 40%)
       );
-      border-radius: 1ex;
+      @include border-radius("top");
     }
     figcaption {
-      display: none;
+      font-size: 0.75rem;
+      max-inline-size: 154px;
+      padding: 2px;
+      padding-block-end: 0.5rem;
+      b {
+        display: block;
+      }
     }
   }
   @include breakpoint-up("md") {
@@ -60,11 +66,16 @@
     a {
       padding: 10px;
     }
-    figure figcaption {
-      display: unset;
+    figure {
+      img {
+        @include border-radius("bottom");
+      }
+      figcaption {
+        font-size: 1rem;
+      }
     }
   }
-  @include breakpoint-up('lg') {
-    @include custom-scrollbar('text');
+  @include breakpoint-up("lg") {
+    @include custom-scrollbar("text");
   }
 }

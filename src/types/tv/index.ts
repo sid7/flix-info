@@ -1,4 +1,4 @@
-import type { ICompany, IExternalIDs } from "../common";
+import type { ICompany, IExternalIDs, IMedia } from "../common";
 import type { IEpInfo, ICredit, ICast, ICrew } from "./parts";
 
 export interface ITv {
@@ -55,5 +55,11 @@ export interface ITvInfo extends ITvDetails {
   content_ratings: { results: { iso_3166_1: string; rating: string }[] };
   keywords: {
     results: { name: string; id: number }[];
+  };
+  recommendations: {
+    page: number;
+    results: IMedia[];
+    total_pages: number;
+    total_results: number;
   };
 }

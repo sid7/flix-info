@@ -33,6 +33,9 @@ export default function useFetchInfo<T = IAnyInfo>(
         }
       }
     );
+    return () => {
+      setPayload({ status: "Loading" });
+    };
   }, [scope, id]);
   return payload;
 }

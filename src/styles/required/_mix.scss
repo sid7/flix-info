@@ -21,6 +21,16 @@
   );
 }
 
+@mixin border-radius($dir, $r: 1ex) {
+  @if $dir == "top" or $dir == "bottom" {
+    border-#{$dir}-left-radius: $r;
+    border-#{$dir}-right-radius: $r;
+  } @else if $dir == "left" or $dir == "right" {
+    border-top-#{$dir}-radius: $r;
+    border-bottom-#{$dir}-radius: $r;
+  }
+}
+
 @mixin layer($name) {
   $i: index($layers, $name);
   z-index: 1000 - $i;

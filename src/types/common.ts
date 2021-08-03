@@ -3,11 +3,12 @@ import type { IMovie, IMovieInfo } from "./movie";
 import type { IPerson, IPersonInfo } from "./person";
 
 export type IAnyInfo = ITvInfo | IMovieInfo | IPersonInfo;
+export type IMediaType = "tv" | "movie" | "person";
 export interface IMedia
   extends Partial<ITv>,
     Partial<IMovie>,
     Partial<IPerson> {
-  media_type: "tv" | "movie" | "person";
+  media_type?: IMediaType;
 }
 
 export interface ISearchResponse {

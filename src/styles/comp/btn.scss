@@ -4,7 +4,7 @@
   font-weight: 400;
   padding: 4px 10px;
   font-size: 1rem;
-  background-color: get-color("bg");
+  background-color: transparent;
   border: 1px solid transparent;
   border-radius: 0.75rem;
   user-select: none;
@@ -16,8 +16,28 @@
   }
   &:focus {
     background-color: get-color("text", 0.1);
+    &:not(:focus-visible) {
+      box-shadow: 0 0 0 0.2rem get-color("text", 0.35);
+    }
     &:active {
       background-color: get-color("text", 0.2);
+    }
+  }
+}
+
+.btn-link {
+  color: get-color("accent");
+  outline-offset: 4px;
+  &:hover {
+    background-color: get-color("accent", 0.08);
+  }
+  &:focus {
+    background-color: get-color("accent", 0.1);
+    &:not(:focus-visible) {
+      box-shadow: 0 0 0 0.2rem get-color("accent", 0.35);
+    }
+    &:active {
+      background-color: get-color("accent", 0.2);
     }
   }
 }
