@@ -1,10 +1,12 @@
 import cn from "classnames";
 import { Link } from "react-router-dom";
 import Scroller from "../../components/scroller";
+import { A } from "../../components/utils";
 import { img } from "../../scripts/tmdb-helper";
 import {
+  getTrailer,
   mediaToScrollerItems,
-  prettryMoney,
+  formatMoney,
   prettyTime
 } from "../../scripts/utils";
 import type { IMovieInfo } from "../../types/movie";
@@ -55,12 +57,13 @@ export default function InfoMovie(data: IMovieInfo) {
   const primer = data.release_date.split("-")[0];
   const genres = data.genres.map((g) => g.name).join(", ");
   const poster = img.poster(data.poster_path, "lg");
-  const runTime = data.runtime ? prettyTime(data.runtime) : "-";
+  const runTime = prettyTime(data.runtime);
   const lang = langName.of(data.original_language);
-  const budget = data.budget ? prettryMoney.format(data.budget) : "-";
-  const revenue = data.revenue ? prettryMoney.format(data.revenue) : "-";
+  const budget = data.budget ? formatMoney.format(data.budget) : "—";
+  const revenue = data.revenue ? formatMoney.format(data.revenue) : "—";
 
   const credits = cherryPickCrew(data.credits.crew);
+  const trailer = getTrailer(data.videos.results);
   const cast = mediaToScrollerItems(
     data.credits.cast.map((c) => ({
       ...c,
@@ -98,13 +101,23 @@ export default function InfoMovie(data: IMovieInfo) {
             <li>
               <b>Revenue</b> {revenue}
             </li>
+            <li>
+              <b>Trailer{trailer?.official && " (Official)"}</b>{" "}
+              {trailer ? (
+                <A className="btn btn-link" href={trailer.url}>
+                  {trailer.name} | {trailer.site}
+                </A>
+              ) : (
+                "—"
+              )}
+            </li>
           </ul>
         </div>
         <section className="sec sec-desc">
           {data.tagline && <h2>{data.tagline}</h2>}
           <p>{data.overview}</p>
           <dl>
-            <dt>Credit -</dt>
+            <dt>Credit —</dt>
             {credits.map(([name, credit]) => (
               <dd key={name}>
                 <Link className="btn btn-link" to={`/person/${credit.id}`}>
@@ -118,12 +131,14 @@ export default function InfoMovie(data: IMovieInfo) {
       </header>
       <section className="sec sec-cast">
         <h3>Cast</h3>
-        <Scroller items={cast} />
+        {cast.length > 0 ? <Scroller items={cast} /> : "—"}
       </section>
-      <section className="sec sec-recommend">
-        <h3>Recommendations</h3>
-        <Scroller items={recommend} />
-      </section>
+      {recommend.length > 0 && (
+        <section className="sec sec-recommend">
+          <h3>Recommendations</h3>
+          <Scroller items={recommend} />
+        </section>
+      )}
     </main>
   );
 }

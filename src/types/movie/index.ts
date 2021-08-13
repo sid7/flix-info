@@ -1,4 +1,4 @@
-import type { ICompany, IExternalIDs, IMedia } from "../common";
+import type { ICompany, IExternalIDs, IMedia, IVideo } from "../common";
 import type { ICollection, ICast, ICrew, IReleaseInfo } from "./parts";
 
 export interface IMovie {
@@ -50,6 +50,9 @@ export interface IMovieInfo extends IMovieDetails {
   };
   keywords: {
     keywords: { name: string; id: number }[];
+  };
+  videos: {
+    results: IVideo[];
   };
   recommendations: {
     page: number;

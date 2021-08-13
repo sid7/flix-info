@@ -1,7 +1,10 @@
-import type { IMedia, IMediaType } from "../types/common";
+import type { IMedia, IMediaType, IVideo } from "../types/common";
 import { img } from "./tmdb-helper";
 
-export function prettyTime(time: number) {
+export function prettyTime(time: number | null) {
+  if (!time) {
+    return "—";
+  }
   return time <= 60 ? `${time} min` : `${Math.floor(time / 60)}h ${time % 60}m`;
 }
 
@@ -13,13 +16,13 @@ export const formatDate = new Intl.DateTimeFormat("en", {
 });
 export function prettyDate(str: string | null) {
   if (!str) {
-    return "-";
+    return "—";
   }
   const d = new Date(str);
   return formatDate.format(d);
 }
 
-export const prettryMoney = new Intl.NumberFormat("en", {
+export const formatMoney = new Intl.NumberFormat("en", {
   style: "currency",
   currency: "USD",
   minimumFractionDigits: 0,
@@ -39,3 +42,25 @@ export const mediaToScrollerItems = (item: IMedia[], type?: IMediaType) =>
   }));
 
 export type IScrollerItem = ReturnType<typeof mediaToScrollerItems>;
+
+const sites = {
+  YouTube: "https://www.youtube.com/watch?v=",
+  Vimeo: " https://vimeo.com/"
+};
+
+export function getTrailer(videos: IVideo[]) {
+  if (videos.length === 0) {
+    return null;
+  }
+
+  videos.sort(
+    (a, b) =>
+      new Date(a.published_at).getTime() - new Date(b.published_at).getTime()
+  );
+  const trailer = videos.filter((v) => v.type === "Trailer")[0] || videos[0];
+
+  return {
+    ...trailer,
+    url: `${sites[trailer.site]}${trailer.key}`
+  };
+}

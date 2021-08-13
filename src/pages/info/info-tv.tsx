@@ -1,8 +1,13 @@
 import cn from "classnames";
 import { Link } from "react-router-dom";
 import Scroller from "../../components/scroller";
+import { A } from "../../components/utils";
 import { img } from "../../scripts/tmdb-helper";
-import { prettyTime, mediaToScrollerItems } from "../../scripts/utils";
+import {
+  prettyTime,
+  mediaToScrollerItems,
+  getTrailer
+} from "../../scripts/utils";
 import type { ITvInfo } from "../../types/tv";
 
 const langName = new (Intl as any).DisplayNames(["en"], { type: "language" });
@@ -18,11 +23,10 @@ export default function InfoTV(data: ITvInfo) {
   const poster = img.poster(data.poster_path, "lg");
   const backdrop = img.backdrop(data.backdrop_path, "lg");
   const genres = data.genres.map((g) => g.name).join(", ");
-  // const lang = langName.of(data.original_language);
-  const lang = data.languages.map((l) => langName.of(l));
+  const lang = langName.of(data.original_language);
   const runTime = prettyTime(data.episode_run_time[0]);
   const networks = data.networks.map((n) => n.name).join(", ");
-  // const cast = mediaToScrollerItems(data.credits.cast, "person");
+  const trailer = getTrailer(data.videos.results);
   const cast = mediaToScrollerItems(
     data.credits.cast.map((c) => ({
       ...c,
@@ -60,13 +64,23 @@ export default function InfoTV(data: ITvInfo) {
             <li>
               <b>Type</b> {data.type}
             </li>
+            <li>
+              <b>Trailer{trailer?.official && " (Official)"}</b>{" "}
+              {trailer ? (
+                <A className="btn btn-link" href={trailer.url}>
+                  {trailer.name} | {trailer.site}
+                </A>
+              ) : (
+                "—"
+              )}
+            </li>
           </ul>
         </div>
         <section className="sec sec-desc">
           {data.tagline && <h2>{data.tagline}</h2>}
           <p>{data.overview}</p>
           <dl>
-            <dt>Created By -</dt>
+            <dt>Created By —</dt>
             {data.created_by.map(({ id, name }) => (
               <dd key={id}>
                 <Link className="btn btn-link" to={`/person/${id}`}>
@@ -79,14 +93,16 @@ export default function InfoTV(data: ITvInfo) {
       </header>
       <section className="sec sec-cast">
         <h3>Cast</h3>
-        <Scroller items={cast} />
+        {cast.length > 0 ? <Scroller items={cast} /> : '—'}
       </section>
-      <section
-        className="sec sec-recommend"
-        style={{ contentVisibility: "auto" }}>
-        <h3>Recommendations</h3>
-        <Scroller items={recommend} />
-      </section>
+      {recommend.length > 0 && (
+        <section
+          className="sec sec-recommend"
+          style={{ contentVisibility: "auto" }}>
+          <h3>Recommendations</h3>
+          <Scroller items={recommend} />
+        </section>
+      )}
     </main>
   );
 }

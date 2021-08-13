@@ -3,8 +3,8 @@ import { request } from "../scripts/tmdb-helper";
 import { IAnyInfo } from "../types/common";
 
 const append = {
-  tv: "keywords,credits,content_ratings",
-  movie: "keywords,credits,release_dates",
+  tv: "keywords,credits,videos,content_ratings",
+  movie: "keywords,credits,videos,release_dates",
   person: "combined_credits,images,tagged_images"
 };
 
