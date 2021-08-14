@@ -20,7 +20,7 @@ export default function InfoTV(data: ITvInfo) {
     start: data.first_air_date.split("-")[0],
     end: /Cancled|Ended/i.test(data.status) && data.last_air_date.split("-")[0]
   };
-  const poster = img.poster(data.poster_path, "lg");
+  const poster = img.poster(data.poster_path, "xl");
   const backdrop = img.backdrop(data.backdrop_path, "lg");
   const genres = data.genres.map((g) => g.name).join(", ");
   const lang = langName.of(data.original_language);
@@ -35,65 +35,78 @@ export default function InfoTV(data: ITvInfo) {
     "person"
   );
   const recommend = mediaToScrollerItems(data.recommendations.results);
+  const bg = {
+    ["--backdrop" as any]: backdrop ? `url("${backdrop}")` : 0,
+    ["--poster" as any]: poster ? `url("${poster}")` : 0
+  };
 
   return (
     <main className="page page-info info-tv">
       <header
-        className={cn({ backdrop })}
-        style={{ ["--backdrop" as any]: `url("${backdrop}")` }}>
-        <div className="card-cover">
-          <h1>
-            {data.name} {yr.start && <small>({yr.start})</small>}
-          </h1>
-          <p>{genres}</p>
-          <hr />
-          {poster && <img className="poster" src={poster} alt="" />}
-          <ul>
-            <li>
-              <b>Status</b> {data.status}
-            </li>
-            <li>
-              <b>RunTime</b> {runTime}
-            </li>
-            <li>
-              <b>Language</b> {lang}
-            </li>
-            <li>
-              <b>Networks</b> {networks}
-            </li>
-            <li>
-              <b>Type</b> {data.type}
-            </li>
-            <li>
-              <b>Trailer{trailer?.official && " (Official)"}</b>{" "}
-              {trailer ? (
-                <A className="btn btn-link" href={trailer.url}>
-                  {trailer.name} | {trailer.site}
-                </A>
-              ) : (
-                "—"
-              )}
-            </li>
-          </ul>
+        className={cn("card", { backdrop: backdrop || poster })}
+        style={bg}>
+        <h1>
+          {data.name} {yr.start && <small>({yr.start})</small>}
+        </h1>
+        <p>{genres}</p>
+        <hr />
+        <div className="card-body">
+          {(backdrop || poster) && (
+            <picture>
+              {/* <source srcSet={backdrop || poster!} /> */}
+              <source
+                srcSet={poster || backdrop!}
+                media="(min-width: 1024px)"
+              />
+              <img src={backdrop || poster!} alt="" />
+            </picture>
+          )}
+          <div className="content">
+            <ul className="facts">
+              <li>
+                <b>Status</b> {data.status}
+              </li>
+              <li>
+                <b>Language</b> {lang}
+              </li>
+              <li>
+                <b>RunTime</b> {runTime}
+              </li>
+              <li>
+                <b>Type</b> {data.type}
+              </li>
+              <li>
+                <b>Networks</b> {networks}
+              </li>
+              <li>
+                <b>Trailer{trailer?.official && " (Official)"}</b>{" "}
+                {trailer ? (
+                  <A className="btn btn-link" href={trailer.url}>
+                    {trailer.name} | {trailer.site}
+                  </A>
+                ) : (
+                  "—"
+                )}
+              </li>
+            </ul>
+            {data.tagline && <h3>{data.tagline}</h3>}
+            <p>{data.overview}</p>
+          </div>
         </div>
-        <section className="sec sec-desc">
-          {data.tagline && <h2>{data.tagline}</h2>}
-          <p>{data.overview}</p>
-          <dl>
-            <dt>Created By —</dt>
-            {data.created_by.map(({ id, name }) => (
-              <dd key={id}>
-                <Link className="btn btn-link" to={`/person/${id}`}>
-                  {name}
-                </Link>
-              </dd>
-            ))}
-          </dl>
-        </section>
+        <dl className="card-footer" hidden={!data.created_by.length}>
+          <dt>Created By —</dt>
+          {data.created_by.map(({ id, name }) => (
+            <dd key={id}>
+              <Link className="btn btn-link" to={`/person/${id}`}>
+                {name}
+              </Link>
+            </dd>
+          ))}
+        </dl>
       </header>
       <section className="sec sec-cast">
         <h3>Cast</h3>
-        {cast.length > 0 ? <Scroller items={cast} /> : '—'}
+        {cast.length > 0 ? <Scroller items={cast} /> : "—"}
       </section>
       {recommend.length > 0 && (
         <section

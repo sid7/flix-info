@@ -52,7 +52,7 @@
     }
     figcaption {
       font-size: 0.75rem;
-      max-inline-size: 154px;
+      max-inline-size: min(var(--size), 154px);
       padding: 2px;
       padding-block-end: 0.5rem;
       b {

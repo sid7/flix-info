@@ -56,7 +56,7 @@ export default function InfoMovie(data: IMovieInfo) {
   const backdrop = img.backdrop(data.backdrop_path, "lg");
   const primer = data.release_date.split("-")[0];
   const genres = data.genres.map((g) => g.name).join(", ");
-  const poster = img.poster(data.poster_path, "lg");
+  const poster = img.poster(data.poster_path, "xl");
   const runTime = prettyTime(data.runtime);
   const lang = langName.of(data.original_language);
   const budget = data.budget ? formatMoney.format(data.budget) : "—";
@@ -72,62 +72,75 @@ export default function InfoMovie(data: IMovieInfo) {
     "person"
   );
   const recommend = mediaToScrollerItems(data.recommendations.results);
+  const bg = {
+    ["--backdrop" as any]: backdrop ? `url("${backdrop}")` : 0,
+    ["--poster" as any]: poster ? `url("${poster}")` : 0
+  };
 
   return (
-    <main className={cn("page page-info info-movie")}>
+    <main className="page page-info info-movie">
       <header
-        className={cn({ backdrop })}
-        style={{ ["--backdrop" as any]: `url("${backdrop}")` }}>
-        <div className="card-cover">
-          <h1>
-            {data.title} {primer && <small>({primer})</small>}
-          </h1>
-          <p className="pre-dot">{genres}</p>
-          <hr />
-          {poster && <img className="poster" src={poster} alt="" />}
-          <ul>
-            <li>
-              <b>Status</b> {data.status}
-            </li>
-            <li>
-              <b>RunTime</b> {runTime}
-            </li>
-            <li>
-              <b>Language</b> {lang}
-            </li>
-            <li>
-              <b>Budget</b> {budget}
-            </li>
-            <li>
-              <b>Revenue</b> {revenue}
-            </li>
-            <li>
-              <b>Trailer{trailer?.official && " (Official)"}</b>{" "}
-              {trailer ? (
-                <A className="btn btn-link" href={trailer.url}>
-                  {trailer.name} | {trailer.site}
-                </A>
-              ) : (
-                "—"
-              )}
-            </li>
-          </ul>
+        className={cn("card", { backdrop: backdrop || poster })}
+        style={bg}>
+        <h1>
+          {data.title} {primer && <small>({primer})</small>}
+        </h1>
+        <p>{genres}</p>
+        <hr />
+        <div className="card-body">
+          {(backdrop || poster) && (
+            <picture>
+              {/* <source srcSet={backdrop || poster!} /> */}
+              <source
+                srcSet={poster || backdrop!}
+                media="(min-width: 1024px)"
+              />
+              <img src={backdrop || poster!} alt="" />
+            </picture>
+          )}
+          <div className="content">
+            <ul className="facts">
+              <li>
+                <b>Status</b> {data.status}
+              </li>
+              <li>
+                <b>Language</b> {lang}
+              </li>
+              <li>
+                <b>RunTime</b> {runTime}
+              </li>
+              <li>
+                <b>Budget</b> {budget}
+              </li>
+              <li>
+                <b>Revenue</b> {revenue}
+              </li>
+              <li>
+                <b>Trailer{trailer?.official && " (Official)"}</b>{" "}
+                {trailer ? (
+                  <A className="btn btn-link" href={trailer.url}>
+                    {trailer.name} | {trailer.site}
+                  </A>
+                ) : (
+                  "—"
+                )}
+              </li>
+            </ul>
+            {data.tagline && <h3>{data.tagline}</h3>}
+            <p>{data.overview}</p>
+          </div>
         </div>
-        <section className="sec sec-desc">
-          {data.tagline && <h2>{data.tagline}</h2>}
-          <p>{data.overview}</p>
-          <dl>
-            <dt>Credit —</dt>
-            {credits.map(([name, credit]) => (
-              <dd key={name}>
-                <Link className="btn btn-link" to={`/person/${credit.id}`}>
-                  {name}
-                </Link>
-                {credit.job.join(", ")}
-              </dd>
-            ))}
-          </dl>
-        </section>
+        <dl className="card-footer" hidden={!credits.length}>
+          <dt>Credit —</dt>
+          {credits.map(([name, credit]) => (
+            <dd key={name}>
+              <Link className="btn btn-link" to={`/person/${credit.id}`}>
+                {name}
+              </Link>
+              {credit.job.join(", ")}
+            </dd>
+          ))}
+        </dl>
       </header>
       <section className="sec sec-cast">
         <h3>Cast</h3>

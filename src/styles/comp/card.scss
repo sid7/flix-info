@@ -1,0 +1,97 @@
+.card {
+  padding-block: 10px;
+  h1 {
+    font-size: 2.2rem;
+    padding-inline: 10px;
+  }
+  p {
+    font-size: 1.2rem;
+    padding-inline: 10px;
+    width: 100%;
+  }
+  hr {
+    width: 100%;
+    border-width: 2px;
+    border-color: get-color("text", 0.2);
+    margin-block-end: 1rem;
+  }
+  h3 {
+    font-size: 1.5rem;
+    // color: get-color("text", 0.7);
+    margin-block: 1rem;
+    padding: 6px 10px;
+    background-color: get-color("text", 0.08);
+    border-inline-start: 6px solid get-color("text", 0.4);
+    border-radius: 1ex;
+  }
+}
+.card-body {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4px 10px;
+  gap: 1rem;
+  justify-content: center;
+  img {
+    max-inline-size: 100%;
+  }
+  .content {
+    flex-shrink: 1;
+    flex-basis: 60%;
+    flex-grow: 1;
+  }
+
+  @include breakpoint-up("lg") {
+    flex-wrap: nowrap;
+    // justify-content: unset;
+    img {
+      margin-block: auto;
+    }
+  }
+}
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: flex-start;
+  list-style: none;
+  padding: 0;
+  gap: 10px 1%;
+  flex-shrink: 1;
+  margin-block: 1rem;
+  li {
+    font-size: 1.2rem;
+    padding: 4px 10px;
+    flex-basis: 49%;
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+  b {
+    display: block;
+  }
+}
+.card-footer {
+  padding: 0.5rem 1rem;
+  dt {
+    font-size: 1.4rem;
+  }
+  dd {
+    display: inline-block;
+    text-align: center;
+    margin: 1rem;
+    a {
+      display: block;
+      font-weight: 500;
+    }
+  }
+}
+.backdrop {
+  background-color: get-color("bg");
+  background-image: var(--poster);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-blend-mode: overlay;
+  @include breakpoint-up("lg") {
+    background-image: var(--backdrop);
+  }
+}

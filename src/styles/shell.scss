@@ -23,31 +23,19 @@
 
 .page-info {
   padding: 0;
-  h2 {
-    padding: 6px 10px;
-    background-color: get-color("text", 0.08);
-    border-inline-start: 6px solid get-color("text", 0.4);
-    border-radius: 1ex;
-    margin-block-end: 1rem;
-  }
 
-  dd {
-    display: inline-block;
-    text-align: center;
-    margin: 1rem;
-    a {
-      display: block;
-      font-weight: 500;
+  &.info-person {
+    img {
+      inline-size: 300px;
+      margin-block-start: 0;
+    }
+    p {
+      display: inline-block;
+      margin-block: 0.5rem;
     }
   }
   .sec {
     padding: 4px 10px;
-
-    p {
-      font-size: 1.2rem;
-      display: inline-block;
-      margin-block: 0.5rem;
-    }
   }
 }
 
