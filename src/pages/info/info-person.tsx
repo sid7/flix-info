@@ -1,5 +1,7 @@
+import CreditBlock from "../../components/credit-block";
 import { img } from "../../scripts/tmdb-helper";
 import { prettyDate } from "../../scripts/utils";
+import { processCreditsForTable } from "../../scripts/util-credit-table";
 import type { IPersonInfo } from "../../types/person";
 
 const gender = ["—", "Female", "Male"];
@@ -11,8 +13,9 @@ export default function InfoPerson(data: IPersonInfo) {
   const poster = img.profile(data.profile_path, "lg");
   const birthday = prettyDate(data.birthday);
   const bio = data.biography ? data.biography.split("\n\n") : null;
-  const known_for = data.combined_credits.cast.sort(
-    (a, b) => a.vote_average - b.vote_average
+  const credits = processCreditsForTable(
+    data.combined_credits,
+    data.known_for_department
   );
 
   return (
@@ -52,6 +55,13 @@ export default function InfoPerson(data: IPersonInfo) {
           </div>
         </div>
       </header>
+      <section className="sec sec-credits">
+        <h2>Credits —</h2>
+        <CreditBlock entry={credits.primary} primary />
+        {credits.rest.map((credit) => (
+          <CreditBlock key={credit[0]} entry={credit} />
+        ))}
+      </section>
     </main>
   );
 }

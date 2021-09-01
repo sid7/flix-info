@@ -1,3 +1,5 @@
+import { IMediaType } from "../common";
+
 interface ICreditTv {
   name: string;
   original_name: string;
@@ -25,6 +27,7 @@ export interface ICast extends Partial<ICreditTv>, Partial<ICreditMovie> {
   vote_average: number;
   character: string;
   original_language: string;
+  media_type: IMediaType;
 }
 export interface ICrew extends ICast {
   department: string;

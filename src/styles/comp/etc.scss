@@ -5,11 +5,29 @@
   width: 100%;
 }
 
+.badge {
+  display: inline-block;
+  background-color: get-color("text", 0.08);
+  padding: 4px 10px;
+  border-radius: 0.75rem;
+}
+
 @each $scope in $scopes {
   .scope-#{$scope} {
     .block:not(.block-#{$scope}),
     .block-#{$scope} h3 {
       display: none;
     }
+  }
+}
+
+.span-block span {
+  display: block;
+}
+
+.link {
+  color: get-color("accent");
+  &:hover {
+    text-decoration: underline;
   }
 }

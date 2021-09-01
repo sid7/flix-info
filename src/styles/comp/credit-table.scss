@@ -1,0 +1,60 @@
+.credit-block {
+  box-shadow: 0 2px 14px #000;
+  margin: 1.4rem auto;
+  border-radius: 0.75rem;
+  max-width: 1000px;
+  summary {
+    font-size: 1.8rem;
+    border-bottom: 2px solid transparent;
+    border-radius: 0.75rem;
+    &:hover {
+      background-color: get-color("text", 0.08);
+      &:focus {
+        background-color: get-color("text", 0.1);
+        &:active {
+          background-color: get-color("text", 0.15);
+        }
+      }
+    }
+  }
+  &[open] summary {
+    background-color: get-color("text", 0.2);
+    border-bottom-color: currentColor;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  td,
+  th {
+    padding: 4px 10px;
+  }
+  .entry-yr {
+    text-align: center;
+    vertical-align: top;
+
+    span {
+      display: block;
+      background-color: get-color("bg");
+      position: sticky;
+      top: 0;
+    }
+  }
+
+  .entry-credit {
+    width: 100%;
+    a {
+      font-size: 1.4rem;
+    }
+  }
+
+  .entry-type {
+    text-transform: capitalize;
+    vertical-align: top;
+    .badge {
+      min-width: 40px;
+      text-align: center;
+    }
+  }
+}
