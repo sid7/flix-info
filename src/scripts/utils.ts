@@ -1,6 +1,22 @@
 import type { IMedia, IMediaType, IVideo } from "../types/common";
 import { img } from "./tmdb-helper";
 
+export function genTitle(
+  title?: string,
+  opt?: Partial<{ [a in "start" | "end"]: string | false }>
+) {
+  if (!title) {
+    return "Flix Info";
+  }
+  if (opt?.start) {
+    return `${title} (${opt.start}${
+      opt.end ? ` - ${opt.end})` : ")"
+    } | Flix Info`;
+  }
+
+  return `${title} | Flix Info`;
+}
+
 export function prettyTime(time: number | null) {
   if (!time) {
     return "—";

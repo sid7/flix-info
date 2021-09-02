@@ -2,8 +2,10 @@ import cn from "classnames";
 import { Link } from "react-router-dom";
 import Scroller from "../../components/scroller";
 import { A } from "../../components/utils";
+import useTitle from "../../hooks/doc-title";
 import { img } from "../../scripts/tmdb-helper";
 import {
+  genTitle,
   prettyTime,
   mediaToScrollerItems,
   getTrailer
@@ -17,9 +19,12 @@ export default function InfoTV(data: ITvInfo) {
     return null;
   }
   const yr = {
-    start: data.first_air_date.split("-")[0],
-    end: /Cancled|Ended/i.test(data.status) && data.last_air_date.split("-")[0]
+    start: data.first_air_date?.split("-")[0],
+    end: /Cancled|Ended/i.test(data.status) && data.last_air_date?.split("-")[0]
   };
+
+  useTitle(genTitle(data.name, yr));
+
   const poster = img.poster(data.poster_path, "xl");
   const backdrop = img.backdrop(data.backdrop_path, "lg");
   const genres = data.genres.map((g) => g.name).join(", ");

@@ -3,6 +3,7 @@ import { img } from "../../scripts/tmdb-helper";
 import { prettyDate } from "../../scripts/utils";
 import { processCreditsForTable } from "../../scripts/util-credit-table";
 import type { IPersonInfo } from "../../types/person";
+import useTitle from "../../hooks/doc-title";
 
 const gender = ["—", "Female", "Male"];
 
@@ -10,6 +11,7 @@ export default function InfoPerson(data: IPersonInfo) {
   if (!data.combined_credits) {
     return null;
   }
+  useTitle(`${data.name} — Person | Flix Info`);
   const poster = img.profile(data.profile_path, "lg");
   const birthday = prettyDate(data.birthday);
   const bio = data.biography ? data.biography.split("\n\n") : null;

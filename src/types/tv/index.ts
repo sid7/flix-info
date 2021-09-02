@@ -7,7 +7,7 @@ export interface ITv {
   poster_path: string | null;
   backdrop_path: string | null;
   overview: string;
-  first_air_date: string;
+  first_air_date: string | null;
   origin_country: string[];
   original_name: string;
   original_language: string;
@@ -25,7 +25,7 @@ export interface ITvDetails extends Omit<ITv, "genre_ids"> {
   languages: string[];
   homepage: string;
   episode_run_time: number[];
-  last_air_date: string;
+  last_air_date: string | null;
   last_episode_to_air: IEpInfo | null;
   next_episode_to_air: IEpInfo | null;
   number_of_episodes: number;

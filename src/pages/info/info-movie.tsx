@@ -2,8 +2,10 @@ import cn from "classnames";
 import { Link } from "react-router-dom";
 import Scroller from "../../components/scroller";
 import { A } from "../../components/utils";
+import useTitle from "../../hooks/doc-title";
 import { img } from "../../scripts/tmdb-helper";
 import {
+  genTitle,
   getTrailer,
   mediaToScrollerItems,
   formatMoney,
@@ -54,7 +56,10 @@ export default function InfoMovie(data: IMovieInfo) {
     return null;
   }
   const backdrop = img.backdrop(data.backdrop_path, "lg");
-  const primer = data.release_date.split("-")[0];
+  const premiere = data.release_date.split("-")[0];
+
+  useTitle(genTitle(data.title, { start: premiere }));
+
   const genres = data.genres.map((g) => g.name).join(", ");
   const poster = img.poster(data.poster_path, "xl");
   const runTime = prettyTime(data.runtime);
@@ -83,7 +88,7 @@ export default function InfoMovie(data: IMovieInfo) {
         className={cn("card", { backdrop: backdrop || poster })}
         style={bg}>
         <h1>
-          {data.title} {primer && <small>({primer})</small>}
+          {data.title} {premiere && <small>({premiere})</small>}
         </h1>
         <p>{genres}</p>
         <hr />
