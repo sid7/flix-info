@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Home, Tv, Film, User, Settings } from "react-feather";
+import { IconHome, IconTv, IconFilm, IconUser, IconSettings } from "./icons";
 
 export default function NavBar() {
   return (
@@ -9,19 +9,19 @@ export default function NavBar() {
       </a>
       <nav>
         <NavLink to="/tv" title="TV">
-          <Tv height="1em" width="1.25em" />
+          <IconTv height="1em" width="1.25em" />
         </NavLink>
         <NavLink to="/movie" title="Movie">
-          <Film height="1em" width="1.25em" />
+          <IconFilm height="1em" width="1.25em" />
         </NavLink>
         <NavLink to="/" title="Home" exact>
-          <Home height="1em" width="1.25em" />
+          <IconHome height="1em" width="1.25em" />
         </NavLink>
         <NavLink to="/person" title="Person">
-          <User height="1em" width="1.25em" />
+          <IconUser height="1em" width="1.25em" />
         </NavLink>
         <NavLink to="/settings" title="Settings">
-          <Settings height="1em" width="1.25em" />
+          <IconSettings height="1em" width="1.25em" />
         </NavLink>
       </nav>
     </aside>

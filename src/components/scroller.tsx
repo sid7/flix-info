@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Image } from "react-feather";
+import { IconImage } from "./icons";
 import cn from "classnames";
 import type { IScrollerItem } from "../scripts/utils";
 
@@ -24,7 +24,7 @@ export default function Scroller({ items }: IScroller) {
                     />
                   </picture>
                 ) : (
-                  <Image strokeWidth={0.5} />
+                  <IconImage strokeWidth={0.5} />
                 )}
                 <figcaption dangerouslySetInnerHTML={{ __html: item.label }} />
               </figure>

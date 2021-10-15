@@ -8,8 +8,8 @@ import {
   genTitle,
   getTrailer,
   mediaToScrollerItems,
-  formatMoney,
-  prettyTime
+  prettyMoney,
+  prettyTime,
 } from "../../scripts/utils";
 import type { IMovieInfo } from "../../types/movie";
 import type { ICrew } from "../../types/movie/parts";
@@ -20,7 +20,7 @@ const crewLst = [
   "Novel",
   "Story",
   "Screenplay",
-  "Writer"
+  "Writer",
 ];
 
 interface ICredit {
@@ -42,7 +42,7 @@ function cherryPickCrew(crew: ICrew[]) {
         name,
         id,
         job: [job],
-        credits: [credits]
+        credits: [credits],
       };
     }
   }
@@ -64,29 +64,30 @@ export default function InfoMovie(data: IMovieInfo) {
   const poster = img.poster(data.poster_path, "xl");
   const runTime = prettyTime(data.runtime);
   const lang = langName.of(data.original_language);
-  const budget = data.budget ? formatMoney.format(data.budget) : "—";
-  const revenue = data.revenue ? formatMoney.format(data.revenue) : "—";
+  const budget = prettyMoney.format(data.budget);
+  const revenue = prettyMoney.format(data.revenue);
 
   const credits = cherryPickCrew(data.credits.crew);
   const trailer = getTrailer(data.videos.results);
   const cast = mediaToScrollerItems(
     data.credits.cast.map((c) => ({
       ...c,
-      name: `<b>${c.name}</b> ${c.character}`
+      name: `<b>${c.name}</b> ${c.character}`,
     })),
     "person"
   );
   const recommend = mediaToScrollerItems(data.recommendations.results);
   const bg = {
     ["--backdrop" as any]: backdrop ? `url("${backdrop}")` : 0,
-    ["--poster" as any]: poster ? `url("${poster}")` : 0
+    ["--poster" as any]: poster ? `url("${poster}")` : 0,
   };
 
   return (
     <main className="page page-info info-movie">
       <header
         className={cn("card", { backdrop: backdrop || poster })}
-        style={bg}>
+        style={bg}
+      >
         <h1>
           {data.title} {premiere && <small>({premiere})</small>}
         </h1>

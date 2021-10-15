@@ -1,4 +1,9 @@
-import { Film, TrendingUp, Tv, User } from "react-feather";
+import {
+  IconFilm,
+  IconTrendingUp,
+  IconTv,
+  IconUser,
+} from "../components/icons";
 import Scroller from "../components/scroller";
 import useFetchData from "../hooks/fetch-data";
 
@@ -10,12 +15,12 @@ export default function Dash({ scope }: { scope: string }) {
     <main className={`page page-dash scope-${scope}`}>
       <div>
         <h2>
-          <TrendingUp /> Trending
+          <IconTrendingUp /> Trending
         </h2>
         {trendsTv.length > 0 && (
           <section className="block block-tv">
             <h3>
-              <Tv /> TV
+              <IconTv /> TV
             </h3>
             <Scroller items={trendsTv} />
           </section>
@@ -23,7 +28,7 @@ export default function Dash({ scope }: { scope: string }) {
         {trendsMovie.length > 0 && (
           <section className="block block-movie">
             <h3>
-              <Film /> Movie
+              <IconFilm /> Movie
             </h3>
             <Scroller items={trendsMovie} />
           </section>
@@ -31,7 +36,7 @@ export default function Dash({ scope }: { scope: string }) {
         {trendsPerson.length > 0 && (
           <section className="block block-person">
             <h3>
-              <User /> Person
+              <IconUser /> Person
             </h3>
             <Scroller items={trendsPerson} />
           </section>
@@ -41,5 +46,5 @@ export default function Dash({ scope }: { scope: string }) {
   );
 }
 Dash.defaultProps = {
-  scope: "home"
+  scope: "home",
 };

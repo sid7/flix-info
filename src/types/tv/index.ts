@@ -1,5 +1,5 @@
 import type { ICompany, IExternalIDs, IMedia, IVideo } from "../common";
-import type { IEpInfo, ICredit, ICast, ICrew } from "./parts";
+import type { IEpInfo, ICredit, ICast, ICrew, ISpokenLang } from "./parts";
 
 export interface ITv {
   id: number;
@@ -33,7 +33,7 @@ export interface ITvDetails extends Omit<ITv, "genre_ids"> {
   networks: ICompany[];
   production_companies: ICompany[];
   production_countries: { iso_3166_1: string; name: string }[];
-  spoken_languages: { english_name: string; iso_639_1: string; name: string }[];
+  spoken_languages: ISpokenLang[];
   created_by: ICredit[];
   seasons: {
     air_date: string;

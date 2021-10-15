@@ -6,7 +6,7 @@ interface IResult {
   name: string;
   id: number;
   img: string | null;
-  stamp?: string;
+  stamp?: string | null;
   type: "tv" | "movie" | "person";
 }
 

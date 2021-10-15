@@ -1,7 +1,7 @@
 import CreditBlock from "../../components/credit-block";
 import { img } from "../../scripts/tmdb-helper";
 import { prettyDate } from "../../scripts/utils";
-import { processCreditsForTable } from "../../scripts/util-credit-table";
+import { processCreditsForTable } from "../../scripts/utils";
 import type { IPersonInfo } from "../../types/person";
 import useTitle from "../../hooks/doc-title";
 
@@ -13,7 +13,7 @@ export default function InfoPerson(data: IPersonInfo) {
   }
   useTitle(`${data.name} — Person | Flix Info`);
   const poster = img.profile(data.profile_path, "lg");
-  const birthday = prettyDate(data.birthday);
+  const birthday = prettyDate.format(data.birthday);
   const bio = data.biography ? data.biography.split("\n\n") : null;
   const credits = processCreditsForTable(
     data.combined_credits,
@@ -46,7 +46,7 @@ export default function InfoPerson(data: IPersonInfo) {
               </li>
               {data.deathday && (
                 <li>
-                  <b>DeathDay</b> {prettyDate(data.deathday)}
+                  <b>DeathDay</b> {prettyDate.format(data.deathday)}
                 </li>
               )}
             </ul>

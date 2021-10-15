@@ -1,5 +1,5 @@
-import type { ICast, ICrew } from "../types/person/parts";
-import type { ITableItem } from "../components/credit-block";
+import type { ICast, ICrew } from "../../types/person/parts";
+import type { ITableItem } from "../../components/credit-block";
 
 type IAnyCredit = Partial<ICast> & Partial<ICrew>;
 interface ICombinedCredits {
@@ -17,13 +17,13 @@ export function processCreditsForTable(
   if (primary === "Acting") {
     return {
       primary: cast[0],
-      rest: crew
+      rest: crew,
     };
   }
 
   return {
     primary: crew.filter(([c]) => c === primary)[0],
-    rest: [...cast, ...crew.filter(([c]) => c !== primary)]
+    rest: [...cast, ...crew.filter(([c]) => c !== primary)],
   };
 }
 
@@ -53,7 +53,7 @@ function formateCredits(items: IAnyCredit[], isCast: boolean) {
       ep_count: item.episode_count,
       label: isCast
         ? item.character && `as ${item.character}`
-        : item.job && `... ${item.job}`
+        : item.job && `... ${item.job}`,
     };
 
     if (name in data) {
@@ -64,7 +64,7 @@ function formateCredits(items: IAnyCredit[], isCast: boolean) {
         yr,
         id: item.id!,
         type: item.media_type!,
-        labels: [entry]
+        labels: [entry],
       };
     }
   }

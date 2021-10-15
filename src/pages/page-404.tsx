@@ -1,8 +1,8 @@
 import { Link, RouteChildrenProps } from "react-router-dom";
-import { ArrowLeft, Home } from "react-feather";
+import { IconArrowLeft, IconHome } from "../components/icons";
 
 export default function Page404({
-  location
+  location,
 }: RouteChildrenProps<{}, { msg?: string }>) {
   const msg =
     location.state?.msg || "This page does not exist or may have been removed.";
@@ -20,11 +20,12 @@ export default function Page404({
           onClick={(e) => {
             e.preventDefault();
             history.back();
-          }}>
-          <ArrowLeft height="1em" width="1.25em" /> Go to Previous Page
+          }}
+        >
+          <IconArrowLeft height="1em" width="1.25em" /> Go to Previous Page
         </a>
         <Link className="btn btn-shine" to="/" style={{ fontSize: "1.5em" }}>
-          <Home height="1em" width="1.25em" /> Go to Home
+          <IconHome height="1em" width="1.25em" /> Go to Home
         </Link>
       </div>
     </main>
