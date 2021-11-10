@@ -45,15 +45,14 @@ export default function SchBar() {
       if (e.target.value === "") {
         setResults([]);
       }
-    }
+    },
   };
 
   return (
     <form className="sch" onSubmit={handels.submit} onReset={handels.reset}>
       <div className="sch-bar">
         <input
-          type="text"
-          inputMode="search"
+          type="search"
           placeholder="Quick Search"
           autoComplete="off"
           autoCorrect="off"
@@ -72,7 +71,8 @@ export default function SchBar() {
             className={`sch-result type-${r.type}`}
             to={`/${r.type}/${r.id}`}
             onClick={handels.cls}
-            key={r.id}>
+            key={r.id}
+          >
             <img src={r.img!} alt="" />{" "}
             <span>
               {r.name} <br />
