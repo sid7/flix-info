@@ -39,15 +39,8 @@
     flex-basis: 60%;
     flex-grow: 1;
   }
-
-  @include breakpoint-up("lg") {
-    flex-wrap: nowrap;
-    // justify-content: unset;
-    img {
-      margin-block: auto;
-    }
-  }
 }
+
 .facts {
   display: flex;
   flex-wrap: wrap;
@@ -70,20 +63,25 @@
   }
 }
 .card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   padding: 0.5rem 1rem;
+  justify-content: space-between;
   dt {
     font-size: 1.4rem;
+    width: 100%;
   }
   dd {
-    display: inline-block;
     text-align: center;
-    margin: 1rem;
+    flex: 1 1 auto;
     a {
       display: block;
       font-weight: 500;
     }
   }
 }
+
 .backdrop {
   background-color: get-color("bg");
   background-image: var(--poster);
@@ -91,7 +89,25 @@
   background-size: cover;
   background-attachment: fixed;
   background-blend-mode: overlay;
-  @include breakpoint-up("lg") {
+}
+
+@include breakpoint-up('md') {
+  .card-footer {
+    dd {
+      flex-grow: 0;
+    }
+  }
+}
+
+@include breakpoint-up("lg") {
+  .card-body {
+    flex-wrap: nowrap;
+    // justify-content: unset;
+    img {
+      margin-block: auto;
+    }
+  }
+  .backdrop {
     background-image: var(--backdrop);
   }
 }
