@@ -33,7 +33,7 @@ export default function Validate({
       return (
         <Redirect
           to={{
-            pathname: "/404",
+            pathname: "/error",
             state: {
               msg: `Error <br/>${payload.err}`
             }

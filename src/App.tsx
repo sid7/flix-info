@@ -2,13 +2,13 @@ import {
   BrowserRouter as Router,
   Redirect,
   Route,
-  Switch
+  Switch,
 } from "react-router-dom";
 import Footer from "./components/footer";
 import NavBar from "./components/navbar";
 import SchBar from "./components/sch-bar";
 import Validate from "./components/validate";
-import { Dash, InfoTv, InfoMovie, InfoPerson, Page404 } from "./pages";
+import { Dash, InfoTv, InfoMovie, InfoPerson, Err } from "./pages";
 
 export default function App() {
   return (
@@ -29,7 +29,11 @@ export default function App() {
         <Route
           path="/tv/:id"
           render={(props) => (
-            <Validate scope="tv" id={props.match.params.id} component={InfoTv} />
+            <Validate
+              scope="tv"
+              id={props.match.params.id}
+              component={InfoTv}
+            />
           )}
         />
         <Route
@@ -52,7 +56,10 @@ export default function App() {
             />
           )}
         />
-        <Route path="/404" component={Page404} />
+        <Route
+          path="/:err(404|error|offline)"
+          render={({ match }) => <Err label={match.params.err as any} />}
+        />
         <Redirect to="/404" />
       </Switch>
       <Footer />

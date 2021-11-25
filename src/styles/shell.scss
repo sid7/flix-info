@@ -39,7 +39,7 @@
   }
 }
 
-.page-404 {
+.page-err {
   display: flex;
   flex-direction: column;
   gap: 10ch;
@@ -49,8 +49,13 @@
   h1 {
     color: get-color("yellow");
     font-size: 9vmin;
+
+    code::after {
+      content: "|";
+      margin-inline-start: 0.2em;
+    }
   }
-  p {
+  h2 {
     font-size: 6vmin;
   }
   .lane {
