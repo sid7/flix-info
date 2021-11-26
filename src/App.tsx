@@ -6,7 +6,9 @@ import {
 } from "react-router-dom";
 import Footer from "./components/footer";
 import NavBar from "./components/navbar";
+import PWAToast from "./components/pwa-toast";
 import SchBar from "./components/sch-bar";
+import { Portal } from "./components/utils";
 import Validate from "./components/validate";
 import { Dash, InfoTv, InfoMovie, InfoPerson, Err } from "./pages";
 
@@ -63,6 +65,9 @@ export default function App() {
         <Redirect to="/404" />
       </Switch>
       <Footer />
+      <Portal target="toaster">
+        <PWAToast />
+      </Portal>
     </Router>
   );
 }

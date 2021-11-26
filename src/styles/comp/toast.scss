@@ -1,0 +1,58 @@
+#toaster {
+  @include layer("toaster");
+  position: fixed;
+  left: 0.5rem;
+  bottom: 90px;
+  width: calc(100% - 1rem);
+  @include breakpoint-down("md") {
+    @media (min-aspect-ratio: 13/9) {
+      left: calc(80px + .5rem);
+      bottom: 1rem;
+      width: calc(100% - (80px + 1rem));
+    }
+  }
+
+  @include breakpoint-up("md") {
+    width: 75%;
+    left: 15%;
+  }
+
+  @include breakpoint-up("lg") {
+    left: unset;
+    right: 1rem;
+    bottom: 1rem;
+    width: auto;
+  }
+}
+
+.toast {
+  display: flex;
+  flex-direction: column;
+  // flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  background-color: get-color("bg");
+  box-shadow: 0 2px 4px #000;
+  border-radius: 1ex;
+  width: 100%;
+
+  &-title {
+    font-weight: 400;
+    padding: 10px;
+    border-bottom: 2px solid get-color('text', 0.2);
+    width: 100%;
+  }
+  &-msg {
+    padding-inline: 10px;
+
+  }
+  &-footer {
+    display: flex;
+    gap: inherit;
+    width: 100%;
+    padding: 4px 10px 10px;
+  }
+  .btn {
+    flex: 1 1 auto;
+  }
+}
