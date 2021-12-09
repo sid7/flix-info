@@ -1,9 +1,10 @@
+import { BarLinks } from "../../components/utils";
 import CreditBlock from "../../components/credit-block";
+import useTitle from "../../hooks/doc-title";
 import { img } from "../../scripts/tmdb-helper";
-import { prettyDate } from "../../scripts/utils";
+import { genSocialLinks, prettyDate } from "../../scripts/utils";
 import { processCreditsForTable } from "../../scripts/utils";
 import type { IPersonInfo } from "../../types/person";
-import useTitle from "../../hooks/doc-title";
 
 const gender = ["—", "Female", "Male"];
 
@@ -19,6 +20,7 @@ export default function InfoPerson(data: IPersonInfo) {
     data.combined_credits,
     data.known_for_department
   );
+  const socialLinks = genSocialLinks(data.external_ids);
 
   return (
     <main className="page page-info info-person">
@@ -26,7 +28,15 @@ export default function InfoPerson(data: IPersonInfo) {
         <h1>{data.name}</h1>
         <hr />
         <div className="card-body">
-          {poster && <img src={poster} alt="" />}
+          <div>
+            {poster && <img src={poster} alt="" />}
+            <BarLinks
+              scope="person"
+              id={data.id}
+              homepage={data.homepage}
+              ids={data.external_ids}
+            />
+          </div>
           <div className="content">
             <ul className="facts">
               <li>

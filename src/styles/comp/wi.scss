@@ -1,0 +1,14 @@
+.wi-links {
+  display: flex;
+  gap: 1rem;
+  padding: 6px;
+
+  dd {
+    flex-grow: 1;
+  }
+
+  a {
+    display: block;
+    text-align: center;
+  }
+}

@@ -1,8 +1,14 @@
 export * from "./credit-table";
 export * from "./prettfy";
 export * from "./display-names";
+import { VideoSitesIcon } from "../../components/icons";
 import { img } from "../tmdb-helper";
-import type { IMedia, IMediaType, IVideo } from "../../types/common";
+import type {
+  IExternalIDs,
+  IMedia,
+  IMediaType,
+  IVideo,
+} from "../../types/common";
 import type { ISpokenLang } from "../../types/tv/parts";
 
 export function genTitle(
@@ -57,6 +63,7 @@ export function getTrailer(videos: IVideo[]) {
   return {
     ...trailer,
     url: `${sites[trailer.site]}${trailer.key}`,
+    Icon: VideoSitesIcon[trailer.site],
   };
 }
 
@@ -94,4 +101,20 @@ export function processLangs(
   }
 
   return Object.entries(data);
+}
+
+export function genSocialLinks(ids: IExternalIDs) {
+  const platforms = ["facebook", "twitter", "instagram"];
+  const links = [];
+  for (const platform of platforms) {
+    const id = ids[`${platform}_id` as keyof IExternalIDs];
+    if (id) {
+      links.push({
+        platform,
+        url: `https://www.${platform}.com/${id}`,
+      });
+    }
+  }
+
+  return links;
 }

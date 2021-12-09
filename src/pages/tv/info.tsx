@@ -88,7 +88,12 @@ export default function InfoTV(data: ITvInfo) {
                 <b>Trailer{trailer?.official && " (Official)"}</b>{" "}
                 {trailer ? (
                   <A className="btn btn-link" href={trailer.url}>
-                    {trailer.name} | {trailer.site}
+                    <trailer.Icon
+                      className={trailer.site}
+                      height="1em"
+                      width="1.25em"
+                    />{" "}
+                    {trailer.name}
                   </A>
                 ) : (
                   "—"
