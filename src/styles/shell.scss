@@ -2,6 +2,15 @@
   padding: 14px;
 }
 
+footer {
+  padding: 4px 10px;
+  text-align: center;
+  .btn {
+    padding: 4px;
+    margin-inline-start: 4px;
+  }
+}
+
 .page {
   min-height: 100vh;
   padding: 14px;
@@ -79,5 +88,11 @@
   .navbar,
   .sch {
     display: none !important;
+  }
+}
+
+@include breakpoint-up('lg') {
+  footer {
+    text-align: right;
   }
 }
