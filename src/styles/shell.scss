@@ -3,11 +3,22 @@
 }
 
 footer {
-  padding: 4px 10px;
+  padding: 10px;
   text-align: center;
-  .btn {
-    padding: 4px;
-    margin-inline-start: 4px;
+
+  a {
+    display: inline-block;
+    color: get-color("accent");
+    &:hover {
+      text-decoration: underline;
+    }
+    svg {
+      font-size: 1.5em;
+      height: 1em;
+      padding: 4px;
+      margin-inline: 2px;
+      vertical-align: bottom;
+    }
   }
 }
 
@@ -45,6 +56,30 @@ footer {
   }
   .sec {
     padding: 4px 10px;
+  }
+}
+
+.page-settings {
+  h1 {
+    padding: 4px 10px;
+    border-bottom: 2px solid;
+    margin-block-end: 1rem;
+  }
+
+  h2 {
+    padding: 4px 10px;
+    background-color: get-color("text", 0.05);
+    border-inline-start: 6px solid;
+    border-radius: 0.75rem;
+    margin-block-end: 1rem;
+  }
+
+  select {
+    display: block;
+    inline-size: calc(100% - 2rem);
+    font-size: 1.2rem;
+    margin: 2rem 1rem;
+    --focus-ring: 2px dashed #{get-color("accent")};
   }
 }
 
@@ -91,8 +126,10 @@ footer {
   }
 }
 
-@include breakpoint-up('lg') {
-  footer {
-    text-align: right;
+@include breakpoint-up("lg") {
+  .page-settings {
+    select {
+      inline-size: auto;
+    }
   }
 }

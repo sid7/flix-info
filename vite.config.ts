@@ -19,6 +19,13 @@ export default defineConfig({
       customCollections: {
         "my-icons": FileSystemIconLoader("./assets/icons"),
       },
+      iconCustomizer(_, __, props) {
+        props["aria-hidden"] = "true";
+        props.focusable = "false";
+        props.role = "img";
+        props.height = "1em";
+        props.width = "1.25em";
+      },
     }),
     VitePWA(config),
   ],

@@ -11,21 +11,25 @@ interface IValidate<P extends any> {
 export default function Validate({
   scope,
   id,
-  component: Component
+  component: Component,
 }: IValidate<any>) {
   const payload = useFetchInfo(scope, id);
 
   switch (payload.status) {
     case "Loading":
-      return <h1>Loading...</h1>;
+      return (
+        <main className="page">
+          <h1>Loading...</h1>
+        </main>
+      );
     case "Failed":
       return (
         <Redirect
           to={{
             pathname: "/404",
             state: {
-              msg: `There is no page for "<code>${id}</code>" id in <code>${scope}</code>`
-            }
+              msg: `There is no page for "<code>${id}</code>" id in <code>${scope}</code>`,
+            },
           }}
         />
       );
@@ -35,8 +39,8 @@ export default function Validate({
           to={{
             pathname: "/error",
             state: {
-              msg: `Error <br/>${payload.err}`
-            }
+              msg: `Error <br/>${payload.err}`,
+            },
           }}
         />
       );

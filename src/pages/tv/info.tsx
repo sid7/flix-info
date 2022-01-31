@@ -23,7 +23,7 @@ export default function InfoTV(data: ITvInfo) {
       /Cancled|Ended/i.test(data.status) && data.last_air_date?.split("-")[0],
   };
 
-  useTitle(genTitle(data.name, yr));
+  useTitle(genTitle(data.name, { type: "TV Series", ...yr }));
 
   const poster = img.poster(data.poster_path, "xl");
   const backdrop = img.backdrop(data.backdrop_path, "lg");

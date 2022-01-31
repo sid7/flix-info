@@ -11,20 +11,28 @@ import type {
 } from "../../types/common";
 import type { ISpokenLang } from "../../types/tv/parts";
 
-export function genTitle(
-  title?: string,
-  opt?: Partial<{ [a in "start" | "end"]: string | false }>
-) {
-  if (!title) {
-    return "Flix Info";
-  }
-  if (opt?.start) {
-    return `${title} (${opt.start}${
-      opt.end ? ` - ${opt.end})` : ")"
-    } | Flix Info`;
+const inStandaloneMode = window.matchMedia(
+  "(display-mode: minimal-ui), (display-mode: standalone)"
+).matches;
+
+interface ITitleOpt {
+  type: string;
+  start?: string;
+  end?: string | false;
+}
+export function genTitle(title: string, opt: ITitleOpt) {
+  let stamp = opt.type;
+
+  if (opt.start) {
+    stamp += ` ${opt.start}`;
+    if (opt.end) {
+      stamp += ` - ${opt.end}`;
+    }
   }
 
-  return `${title} | Flix Info`;
+  stamp = `${title} (${stamp})`;
+
+  return inStandaloneMode ? stamp : stamp + " | Flix Info";
 }
 
 export function numPluralize(word: string, num: number, suffix = "s") {

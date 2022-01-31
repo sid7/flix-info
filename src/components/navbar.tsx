@@ -4,24 +4,24 @@ import { IconHome, IconTv, IconFilm, IconUser, IconSettings } from "./icons";
 export default function NavBar() {
   return (
     <aside className="navbar">
-      <a className="link-brand" href="/">
-        🍿
+      <a className="link-brand" href="/" aria-label="flix-info">
+        <span aria-hidden>🍿</span>
       </a>
-      <nav>
+      <nav aria-label="pages">
         <NavLink to="/tv" title="TV">
-          <IconTv height="1em" width="1.25em" />
+          <IconTv />
         </NavLink>
         <NavLink to="/movie" title="Movie">
-          <IconFilm height="1em" width="1.25em" />
+          <IconFilm />
         </NavLink>
         <NavLink to="/" title="Home" exact>
-          <IconHome height="1em" width="1.25em" />
+          <IconHome />
         </NavLink>
         <NavLink to="/person" title="Person">
-          <IconUser height="1em" width="1.25em" />
+          <IconUser />
         </NavLink>
         <NavLink to="/settings" title="Settings">
-          <IconSettings height="1em" width="1.25em" />
+          <IconSettings />
         </NavLink>
       </nav>
     </aside>

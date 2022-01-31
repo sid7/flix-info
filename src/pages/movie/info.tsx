@@ -58,7 +58,7 @@ export default function InfoMovie(data: IMovieInfo) {
   const backdrop = img.backdrop(data.backdrop_path, "lg");
   const premiere = data.release_date.split("-")[0];
 
-  useTitle(genTitle(data.title, { start: premiere }));
+  useTitle(genTitle(data.title, { type: "Movie", start: premiere }));
 
   const genres = data.genres.map((g) => g.name).join(", ");
   const poster = img.poster(data.poster_path, "xl");

@@ -1,4 +1,5 @@
 :root {
+  accent-color: get-color("accent");
   @each $shade, $rgb in $rgbs {
     --rgb-#{$shade}: #{$rgb};
     --clr-#{$shade}: rgb(var(--rgb-#{$shade}));
@@ -10,4 +11,10 @@
   --text-clr: rgb(#{get-rgb("text")});
   --bg-rgb: #{get-rgb("black")};
   --bg-clr: rgb(#{get-rgb("bg")});
+}
+
+@each $shade in $shades {
+  [data-accent="#{$shade}"] {
+    --accent-rgb: #{get-rgb($shade)};
+  }
 }

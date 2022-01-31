@@ -10,9 +10,11 @@ import PWAToast from "./components/pwa-toast";
 import SchBar from "./components/sch-bar";
 import { Portal } from "./components/utils";
 import Validate from "./components/validate";
-import { Dash, InfoTv, InfoMovie, InfoPerson, Err } from "./pages";
+import useAccent from "./hooks/accent";
+import { Dash, Settings, InfoTv, InfoMovie, InfoPerson, Err } from "./pages";
 
 export default function App() {
+  const [accent, setAccent] = useAccent();
   return (
     <Router>
       <NavBar />
@@ -22,6 +24,9 @@ export default function App() {
       <Switch>
         <Route path="/" exact>
           <Dash />
+        </Route>
+        <Route path="/settings">
+          <Settings currentAccent={accent} setAccent={setAccent} />
         </Route>
         <Route
           path="/:scope(tv|movie|person)"
