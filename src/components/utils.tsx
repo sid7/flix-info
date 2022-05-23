@@ -62,13 +62,14 @@ export function BarLinks(props: IBarLinks) {
             <A
               className="btn btn-shine"
               href={`https://www.imdb.com/${imdb_path}/${imdb}`}
+              title="IMDb"
             >
               <IconIMDB {...iconProps} />
             </A>
           </dd>
         )}
       </div>
-      {!!social && (
+      {social.length > 0 && (
         <div className={`${tag} links-social`}>
           <dt className="v-hidden">Social Links</dt>
           {social.map(({ platform, url }) => {

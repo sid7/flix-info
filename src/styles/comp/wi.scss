@@ -1,3 +1,37 @@
+.info {
+  padding: 4px 10px;
+}
+
+.widget-basic-info {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 0.75rem;
+  user-select: none;
+  margin-block-end: 1rem;
+
+  li {
+    display: flex;
+    flex-direction: column-reverse;
+    text-align: center;
+    background-color: get-color("text", 0.08);
+    border-radius: 1ex;
+    inline-size: calc(50% - 0.45rem);
+    font-size: 2rem;
+    padding: 4px 10px;
+
+    strong {
+      font-weight: 400;
+      font-size: 1.5rem;
+    }
+
+    &:last-child {
+      inline-size: 100%;
+    }
+  }
+}
+
 .wi-links {
   display: flex;
   gap: 1rem;
@@ -10,5 +44,66 @@
   a {
     display: block;
     text-align: center;
+  }
+}
+
+.widget-ep-desc {
+  div {
+    position: relative;
+    background-color: get-color("text", 0.08);
+    padding: 10px 10px 4px;
+    border-radius: 1ex;
+
+    & + div {
+      margin-block-start: 1.5rem;
+    }
+  }
+
+  dt {
+    font-size: 1.5rem;
+  }
+
+  .badge {
+    font-size: 65%;
+    padding: 0px 6px;
+    color: #fff;
+    background-color: get-color("text");
+
+    position: absolute;
+    inset-block-start: -10px;
+    inset-inline-end: 0;
+  }
+
+  dd + dd {
+    margin-block-start: 0.5rem;
+  }
+}
+
+@include breakpoint-up("md") {
+  .info {
+    display: flex;
+    gap: 1rem;
+  }
+  .wrap {
+    inline-size: 80%;
+  }
+  .widget-ep-desc {
+    flex-grow: 1;
+  }
+
+  .widget-basic-info {
+    margin-block-start: 1rem;
+  }
+}
+
+@include breakpoint-up("lg") {
+  .wrap {
+    inline-size: 60%;
+  }
+}
+
+@include breakpoint-up("xl") {
+  .wrap {
+    inline-size: auto;
   }
 }

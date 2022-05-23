@@ -1,7 +1,8 @@
 import cn from "classnames";
 import { Link } from "react-router-dom";
 import Scroller from "../../components/scroller";
-import { A } from "../../components/utils";
+import { A, BarLinks } from "../../components/utils";
+import EpDesc from "../../components/ep-desc";
 import useTitle from "../../hooks/doc-title";
 import { img } from "../../scripts/tmdb-helper";
 import {
@@ -10,6 +11,7 @@ import {
   mediaToScrollerItems,
   getTrailer,
   langName,
+  numPluralize,
 } from "../../scripts/utils";
 import type { ITvInfo } from "../../types/tv";
 
@@ -44,6 +46,11 @@ export default function InfoTV(data: ITvInfo) {
     ["--backdrop" as any]: backdrop ? `url("${backdrop}")` : 0,
     ["--poster" as any]: poster ? `url("${poster}")` : 0,
   };
+  const basic_info: [label: string, val: string | number][] = [
+    [numPluralize("Season", data.number_of_seasons), data.number_of_seasons],
+    [numPluralize("Episode", data.number_of_episodes), data.number_of_episodes],
+    ["User Score", `${data.vote_average * 10}%`],
+  ];
 
   return (
     <main className="page page-info info-tv">
@@ -115,16 +122,47 @@ export default function InfoTV(data: ITvInfo) {
           ))}
         </dl>
       </header>
-      <section className="sec sec-cast">
-        <h3>Cast</h3>
+      <section className="sec sec-cast" aria-labelledby="sec-title-1">
+        <h3 id="sec-title-1">Main Cast</h3>
         {cast.length > 0 ? <Scroller items={cast} /> : "—"}
+      </section>
+      <section className="info" aria-label="info">
+        <div className="wrap">
+          <ul className="widget-basic-info">
+            {basic_info.map(([label, val]) => (
+              <li key={label}>
+                <strong>{label}</strong> {val}
+              </li>
+            ))}
+          </ul>
+          <dl className="widget-links">
+            <BarLinks
+              scope="tv"
+              id={data.id}
+              ids={data.external_ids}
+              homepage={data.homepage}
+            />
+          </dl>
+        </div>
+        <dl className="widget-ep-desc">
+          {data.last_episode_to_air && (
+            <EpDesc
+              data={data.last_episode_to_air}
+              label={/cancled|ended/.test(data.status) ? "Final" : "Last"}
+            />
+          )}
+          {data.next_episode_to_air && (
+            <EpDesc data={data.next_episode_to_air} label="Next" />
+          )}
+        </dl>
       </section>
       {recommend.length > 0 && (
         <section
           className="sec sec-recommend"
+          aria-labelledby="sec-title-2"
           style={{ contentVisibility: "auto" }}
         >
-          <h3>Recommendations</h3>
+          <h3 id="sec-title-2">Recommendations</h3>
           <Scroller items={recommend} />
         </section>
       )}

@@ -38,6 +38,9 @@
       max-inline-size: 154px;
       block-size: auto;
       aspect-ratio: 2/3;
+      g {
+        stroke-width: inherit;
+      }
     }
     img {
       object-fit: cover;
