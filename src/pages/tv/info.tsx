@@ -49,7 +49,7 @@ export default function InfoTV(data: ITvInfo) {
   const basic_info: [label: string, val: string | number][] = [
     [numPluralize("Season", data.number_of_seasons), data.number_of_seasons],
     [numPluralize("Episode", data.number_of_episodes), data.number_of_episodes],
-    ["User Score", `${data.vote_average * 10}%`],
+    ["User Score", data.vote_count > 0 ? `${data.vote_average * 10}%` : "—"],
   ];
 
   return (

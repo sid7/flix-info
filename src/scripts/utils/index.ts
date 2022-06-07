@@ -9,7 +9,7 @@ import type {
   IMediaType,
   IVideo,
 } from "../../types/common";
-import type { ISpokenLang } from "../../types/tv/parts";
+import type { ISpokenLang } from "../../types/common";
 
 const inStandaloneMode = window.matchMedia(
   "(display-mode: minimal-ui), (display-mode: standalone)"

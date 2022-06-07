@@ -57,3 +57,9 @@ export interface IVideo {
   size: number;
   type: string;
 }
+
+export interface ISpokenLang {
+  english_name: string;
+  iso_639_1: string;
+  name: string;
+}

@@ -1,4 +1,10 @@
-import type { ICompany, IExternalIDs, IMedia, IVideo } from "../common";
+import type {
+  ICompany,
+  IExternalIDs,
+  IMedia,
+  ISpokenLang,
+  IVideo,
+} from "../common";
 import type { ICollection, ICast, ICrew, IReleaseInfo } from "./parts";
 
 export interface IMovie {
@@ -28,7 +34,7 @@ export interface IMovieDetails extends Omit<IMovie, "genre_ids"> {
   homepage: string;
   belongs_to_collection: null | ICollection;
   genres: { id: number; name: string }[];
-  spoken_languages: { iso_639_1: string; name: string }[];
+  spoken_languages: ISpokenLang[];
   production_companies: ICompany[];
   production_countries: {
     iso_3166_1: string;

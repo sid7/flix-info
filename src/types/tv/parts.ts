@@ -1,11 +1,5 @@
 import type { IGender } from "../common";
 
-export interface ISpokenLang {
-  english_name: string;
-  iso_639_1: string;
-  name: string;
-}
-
 export interface IEpInfo {
   air_date: string;
   episode_number: number;

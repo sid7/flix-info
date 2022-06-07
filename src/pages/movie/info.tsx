@@ -1,55 +1,19 @@
 import cn from "classnames";
 import { Link } from "react-router-dom";
 import Scroller from "../../components/scroller";
-import { A } from "../../components/utils";
+import { A, BarLinks } from "../../components/utils";
 import useTitle from "../../hooks/doc-title";
+import { cherryPickCrew, langName } from "./helper";
 import { img } from "../../scripts/tmdb-helper";
 import {
   genTitle,
   getTrailer,
   mediaToScrollerItems,
+  numPluralize,
   prettyMoney,
   prettyTime,
 } from "../../scripts/utils";
 import type { IMovieInfo } from "../../types/movie";
-import type { ICrew } from "../../types/movie/parts";
-
-const crewLst = [
-  "Characters",
-  "Director",
-  "Novel",
-  "Story",
-  "Screenplay",
-  "Writer",
-];
-
-interface ICredit {
-  name: string;
-  id: number;
-  job: string[];
-  credits: Omit<ICrew, "name" | "id" | "job">[];
-}
-function cherryPickCrew(crew: ICrew[]) {
-  const rtn: { [name: string]: ICredit } = {};
-  const filterCrew = crew.filter((c) => crewLst.includes(c.job));
-
-  for (const { name, id, job, ...credits } of filterCrew) {
-    if (rtn[name]) {
-      rtn[name].job.push(job);
-      rtn[name].credits.push(credits);
-    } else {
-      rtn[name] = {
-        name,
-        id,
-        job: [job],
-        credits: [credits],
-      };
-    }
-  }
-  return Object.entries(rtn);
-}
-
-const langName = new (Intl as any).DisplayNames(["en"], { type: "language" });
 
 export default function InfoMovie(data: IMovieInfo) {
   if (!data.title) {
@@ -81,6 +45,24 @@ export default function InfoMovie(data: IMovieInfo) {
     ["--backdrop" as any]: backdrop ? `url("${backdrop}")` : 0,
     ["--poster" as any]: poster ? `url("${poster}")` : 0,
   };
+
+  const userScore = data.vote_count > 0 ? `${data.vote_average * 10}%` : "—";
+  const keywords = [...data.keywords.keywords];
+  keywords.length = Math.min(keywords.length, 5);
+  const wiData = [
+    [
+      numPluralize("Spoken Language", data.spoken_languages.length),
+      data.spoken_languages.map((lang) => lang.english_name).join(", "),
+    ],
+    [
+      "Production Companies",
+      data.production_companies.map((a) => a.name).join(", ") || "—",
+    ],
+    [
+      "Production Countires",
+      data.production_countries.map((a) => a.name).join(", ") || "—",
+    ],
+  ];
 
   return (
     <main className="page page-info info-movie">
@@ -153,6 +135,44 @@ export default function InfoMovie(data: IMovieInfo) {
           ))}
         </dl>
       </header>
+      <section className="info" aria-label="info">
+        <div className="wrap">
+          <ul className="widget-basic-info">
+            <li>
+              <strong>User Score</strong> {userScore}
+            </li>
+          </ul>
+          <dl className="widget-links">
+            <BarLinks
+              scope="movie"
+              id={data.id}
+              homepage={data.homepage}
+              ids={data.external_ids}
+              imdb={data.imdb_id}
+            />
+          </dl>
+        </div>
+        <dl className="widget-grid-list">
+          <div>
+            <dt>Original Title</dt>
+            <dd lang={data.original_language}>{data.original_title}</dd>
+          </div>
+          {wiData.map(([label, val]) => (
+            <div key={label}>
+              <dt>{label}</dt>
+              <dd>{val}</dd>
+            </div>
+          ))}
+        </dl>
+        {keywords.length > 0 && (
+          <dl className="widget-keywords">
+            <dt>Keywords</dt>
+            {keywords.map((k) => (
+              <dd key={k.id}>{k.name}</dd>
+            ))}
+          </dl>
+        )}
+      </section>
       <section className="sec sec-cast">
         <h3>Cast</h3>
         {cast.length > 0 ? <Scroller items={cast} /> : "—"}

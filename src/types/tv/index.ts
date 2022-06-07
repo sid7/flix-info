@@ -1,5 +1,11 @@
-import type { ICompany, IExternalIDs, IMedia, IVideo } from "../common";
-import type { IEpInfo, ICredit, ICast, ICrew, ISpokenLang } from "./parts";
+import type {
+  ICompany,
+  IExternalIDs,
+  IMedia,
+  IVideo,
+  ISpokenLang,
+} from "../common";
+import type { IEpInfo, ICredit, ICast, ICrew } from "./parts";
 
 export interface ITv {
   id: number;

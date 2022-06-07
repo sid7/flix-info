@@ -5,10 +5,10 @@ const config = {
 };
 
 class RegionName {
-  private __Intl = new (Intl as any).DisplayNames([config.lang.region], {
+  private __Intl = new Intl.DisplayNames([config.lang.region], {
     type: "region",
   });
-  format(str: string, widthcode = false): string {
+  format(str: string, widthcode = false) {
     const region = this.__Intl.of(str);
     if (!widthcode) {
       return region;
@@ -19,7 +19,7 @@ class RegionName {
 export const regionName = new RegionName();
 
 class LangName {
-  private __Intl = new (Intl as any).DisplayNames(["en"], { type: "language" });
+  private __Intl = new Intl.DisplayNames(["en"], { type: "language" });
 
   format(str: string, withCode = false) {
     const lang = this.__Intl.of(str);
