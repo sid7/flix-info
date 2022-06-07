@@ -135,6 +135,10 @@ export default function InfoMovie(data: IMovieInfo) {
           ))}
         </dl>
       </header>
+      <section className="sec sec-cast">
+        <h3>Cast</h3>
+        {cast.length > 0 ? <Scroller items={cast} /> : "—"}
+      </section>
       <section className="info" aria-label="info">
         <div className="wrap">
           <ul className="widget-basic-info">
@@ -172,10 +176,6 @@ export default function InfoMovie(data: IMovieInfo) {
             ))}
           </dl>
         )}
-      </section>
-      <section className="sec sec-cast">
-        <h3>Cast</h3>
-        {cast.length > 0 ? <Scroller items={cast} /> : "—"}
       </section>
       {recommend.length > 0 && (
         <section className="sec sec-recommend">

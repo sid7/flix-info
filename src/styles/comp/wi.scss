@@ -9,10 +9,7 @@
   flex-wrap: wrap;
   gap: 1rem 0.75rem;
   user-select: none;
-  margin-block-end: 1rem;
-  .info-movie & {
-    margin-block-start: 1rem;
-  }
+  margin-block: 1rem;
 
   li {
     display: flex;
