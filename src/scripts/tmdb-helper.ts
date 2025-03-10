@@ -1,6 +1,24 @@
 import { ISearchResponse } from "../types/common";
 
-const tmdb_api_base = "https://api.themoviedb.org/3";
+export const tmdb_apis = [
+  "https://api.themoviedb.org/3",
+  "https://api.tmdb.org/3",
+];
+
+function getApiBase() {
+  const api_base = localStorage.getItem("fi_api_base");
+  if (api_base !== null) {
+    return api_base;
+  }
+  return tmdb_apis[0];
+}
+
+export let tmdb_api_base = getApiBase();
+
+export function setApiBase(api_base: string) {
+  tmdb_api_base = api_base;
+  localStorage.setItem("fi_api_base", api_base);
+}
 
 // Request
 
@@ -15,7 +33,7 @@ export async function request<T = any>(
 ): Promise<IRequest<T>> {
   opt = new URLSearchParams({
     ...opt,
-    api_key: import.meta.env.VITE_TMDB_API_V3 as string
+    api_key: import.meta.env.VITE_TMDB_API_V3 as string,
   });
   const url = `${tmdb_api_base}/${pathname}?${opt.toString()}`;
   try {
@@ -50,7 +68,7 @@ export async function search(query: string, scope = "multi") {
         ? img.profile(d.profile_path, "md")
         : null,
       stamp: d.release_date || d.first_air_date,
-      type: d.media_type! as "tv" | "movie" | "person"
+      type: d.media_type! as "tv" | "movie" | "person",
     }));
 
     return { data: processedData, status };
@@ -69,7 +87,7 @@ export const img = {
       lg: "w185", xl: "w300", max: "w500",
     },
     profile: { sm: "w45", md: "w185", lg: "h632" },
-    backdrop: { sm: "w300", md: "w780", lg: "w1280" }
+    backdrop: { sm: "w300", md: "w780", lg: "w1280" },
   },
   __createURL(path: string, size: string) {
     return `${this.base}/${size}${path}`;
@@ -87,8 +105,8 @@ export const img = {
     return (
       path && [
         this.__createURL(path.replace(".png", ".svg"), "original"),
-        this.__createURL(path, size)
+        this.__createURL(path, size),
       ]
     );
-  }
+  },
 };
