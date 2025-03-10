@@ -21,7 +21,7 @@ export default function useFetchInfo<T = IAnyInfo>(
   const [payload, setPayload] = useState<IPayload<T>>({ status: "Loading" });
   const append_to_response = append[scope] + ",external_ids,recommendations";
   useEffect(() => {
-    request<T>(`/${scope}/${id}`, { append_to_response }).then(
+    request<T>(`${scope}/${id}`, { append_to_response }).then(
       ({ status, data, err }) => {
         if (status === "Success") {
           setPayload({
